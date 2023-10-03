@@ -92,4 +92,54 @@ export class JobPostingsService {
             .getRawMany();
         return postings;
     }
+
+    /**
+     * 채용 공고 상세페이지 조회
+     **/
+    async getSingleJobPosting(id: number) {
+        // find posting by id
+        const posting = await this.jobPostingRepository
+            .createQueryBuilder("posting")
+            .leftJoinAndSelect("posting.company", "company")
+            .where("posting.id = :id", { id })
+            .getOne();
+
+        // if posting does not exist
+        if (!posting) {
+            throw new BadRequestException(`Invalid posting id ${id}`);
+        }
+
+        // find other postings by company
+        const otherPostings = (
+            await this.jobPostingRepository
+                .createQueryBuilder("posting")
+                .where(
+                    "posting.company.id = :companyId AND posting.id != :currentId",
+                    {
+                        companyId: posting.company.id,
+                        currentId: posting.id,
+                    },
+                )
+                .select("posting.id")
+                .getMany()
+        ).map((posting) => posting.id);
+
+        // define result
+        const result = {
+            job_posting_id: posting.id,
+            company_name: posting.company.name,
+            company_nation: posting.company.nation,
+            company_location: posting.company.location,
+            job_position: posting.position,
+            job_reward: posting.reward,
+            job_skill: posting.skill,
+            job_content: posting.content,
+            job_other_postings_by_company:
+                otherPostings.length > 0
+                    ? otherPostings
+                    : "No other postings by this company",
+        };
+
+        return result;
+    }
 }

@@ -56,4 +56,13 @@ export class JobPostingsController {
     async getAllJobPostings() {
         return this.jobPostingsService.getAllJobPostings();
     }
+
+    /**
+     * 채용 공고 상세페이지 조회
+     **/
+    @Get(":id")
+    @HttpCode(HttpStatus.OK)
+    async getSingleJobPosting(@Param("id", ParseIntPipe) id: number) {
+        return this.jobPostingsService.getSingleJobPosting(id);
+    }
 }
