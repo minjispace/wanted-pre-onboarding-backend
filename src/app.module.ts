@@ -6,6 +6,7 @@ import { CompanyModule } from "./modules/company/company.module";
 import { JobPostingModule } from "./modules/job_posting/job_posting.module";
 import { ApplicationHistoryModule } from "./modules/application_history/application_history.module";
 import { User } from "./modules/user/user.entity";
+import { Company } from "./modules/company/company.entity";
 
 @Module({
     imports: [
@@ -21,7 +22,7 @@ import { User } from "./modules/user/user.entity";
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
             synchronize: process.env.NODE_ENV === "dev" ? true : false,
-            entities: [User],
+            entities: [User, Company],
         }),
         UserModule,
         CompanyModule,
