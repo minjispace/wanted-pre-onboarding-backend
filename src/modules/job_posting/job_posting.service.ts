@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { JobPosting } from "./job_posting.entity";
@@ -46,6 +50,19 @@ export class JobPostingsService {
      * 채용 공고 수정
      **/
     async editJobPosting(posting: EditJobPostingDTO, id: number) {
-        return { posting, id };
+        //  update posting
+        const updatedPosting = await this.jobPostingRepository.update(
+            id,
+            posting,
+        );
+
+        // if posting does not exist
+        if (updatedPosting.affected === 0) {
+            throw new BadRequestException(`Invalid posting id ${id}`);
+        }
+
+        return await this.jobPostingRepository.find({
+            where: { id },
+        });
     }
 }

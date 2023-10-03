@@ -1,4 +1,13 @@
-import { Body, Controller, Param, Patch, Post } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    HttpCode,
+    HttpStatus,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
+} from "@nestjs/common";
 import { JobPostingsService } from "./job_posting.service";
 import { CreateJobPostingDTO } from "./dto/create-posting.dto";
 import { EditJobPostingDTO } from "./dto/edit-posting.dto";
@@ -19,8 +28,9 @@ export class JobPostingsController {
      * 채용 공고 수정
      **/
     @Patch("/:id")
+    @HttpCode(HttpStatus.OK)
     async editJobPosting(
-        @Param("id") id: number,
+        @Param("id", ParseIntPipe) id: number,
         @Body() posting: EditJobPostingDTO,
     ) {
         return this.jobPostingsService.editJobPosting(posting, id);
