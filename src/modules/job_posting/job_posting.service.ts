@@ -60,4 +60,16 @@ export class JobPostingsService {
 
         return await this.jobPostingRepository.findOne({ where: { id } });
     }
+
+    /**
+     * 채용 공고 삭제
+     **/
+    async deleteJobPosting(id: number): Promise<void> {
+        const deletedPosting = await this.jobPostingRepository.delete(id);
+
+        // if posting does not exist
+        if (deletedPosting.affected === 0) {
+            throw new BadRequestException(`Invalid posting id ${id}`);
+        }
+    }
 }

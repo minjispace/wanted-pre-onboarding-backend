@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     HttpCode,
     HttpStatus,
     Param,
@@ -35,5 +36,14 @@ export class JobPostingsController {
         @Body() posting: EditJobPostingDTO,
     ) {
         return this.jobPostingsService.editJobPosting(posting, id);
+    }
+
+    /**
+     * 채용 공고 삭제
+     **/
+    @Delete("/:id")
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async deleteJobPosting(@Param("id", ParseIntPipe) id: number) {
+        return this.jobPostingsService.deleteJobPosting(id);
     }
 }
