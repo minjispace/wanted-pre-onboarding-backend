@@ -2,6 +2,7 @@ import {
     Body,
     Controller,
     Delete,
+    Get,
     HttpCode,
     HttpStatus,
     Param,
@@ -45,5 +46,14 @@ export class JobPostingsController {
     @HttpCode(HttpStatus.NO_CONTENT)
     async deleteJobPosting(@Param("id", ParseIntPipe) id: number) {
         return this.jobPostingsService.deleteJobPosting(id);
+    }
+
+    /**
+     * 채용 공고 목록 조회
+     **/
+    @Get()
+    @HttpCode(HttpStatus.OK)
+    async getAllJobPostings() {
+        return this.jobPostingsService.getAllJobPostings();
     }
 }

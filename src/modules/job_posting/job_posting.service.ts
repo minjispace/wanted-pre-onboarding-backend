@@ -72,4 +72,11 @@ export class JobPostingsService {
             throw new BadRequestException(`Invalid posting id ${id}`);
         }
     }
+
+    /**
+     * 채용 공고 목록 조회
+     **/
+    async getAllJobPostings() {
+        return "get all job postings";
+    }
 }
