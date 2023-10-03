@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { JobPosting } from "./job_posting.entity";
 import { CreateJobPostingDTO } from "./dto/create-posting.dto";
 import { Company } from "../company/company.entity";
+import { EditJobPostingDTO } from "./dto/edit-posting.dto";
 
 @Injectable()
 export class JobPostingsService {
@@ -39,5 +40,12 @@ export class JobPostingsService {
         await this.jobPostingRepository.save(newposting);
 
         return { newposting };
+    }
+
+    /**
+     * 채용 공고 수정
+     **/
+    async editJobPosting(posting: EditJobPostingDTO, id: number) {
+        return { posting, id };
     }
 }
