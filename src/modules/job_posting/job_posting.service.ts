@@ -43,7 +43,10 @@ export class JobPostingsService {
     /**
      * 채용 공고 수정
      **/
-    async editJobPosting(posting: EditJobPostingDTO, id: number) {
+    async editJobPosting(
+        posting: EditJobPostingDTO,
+        id: number,
+    ): Promise<JobPosting> {
         //  update posting
         const updatedPosting = await this.jobPostingRepository.update(
             id,
@@ -55,8 +58,6 @@ export class JobPostingsService {
             throw new BadRequestException(`Invalid posting id ${id}`);
         }
 
-        return await this.jobPostingRepository.find({
-            where: { id },
-        });
+        return await this.jobPostingRepository.findOne({ where: { id } });
     }
 }
