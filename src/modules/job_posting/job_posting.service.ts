@@ -1,8 +1,4 @@
-import {
-    BadRequestException,
-    Injectable,
-    NotFoundException,
-} from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { JobPosting } from "./job_posting.entity";
@@ -34,9 +30,7 @@ export class JobPostingsService {
 
         // if company does not exist
         if (!isExistCompany) {
-            throw new BadRequestException(
-                `company does not exist with id ${companyId}`,
-            );
+            throw new BadRequestException(`Invalid company id ${companyId}`);
         }
 
         // create new posting
