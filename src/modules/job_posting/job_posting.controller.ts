@@ -13,6 +13,8 @@ import {
 import { JobPostingsService } from "./job_posting.service";
 import { CreateJobPostingDTO } from "./dto/create-posting.dto";
 import { EditJobPostingDTO } from "./dto/edit-posting.dto";
+import { JobPosting } from "./job_posting.entity";
+import { JobPostingResult } from "./types/posting.type";
 
 @Controller("posting")
 export class JobPostingsController {
@@ -23,7 +25,9 @@ export class JobPostingsController {
      **/
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    async createJobPosting(@Body() posting: CreateJobPostingDTO) {
+    async createJobPosting(@Body() posting: CreateJobPostingDTO): Promise<{
+        newposting: JobPosting;
+    }> {
         return this.jobPostingsService.createJobPosting(posting);
     }
 
@@ -35,7 +39,7 @@ export class JobPostingsController {
     async editJobPosting(
         @Param("id", ParseIntPipe) id: number,
         @Body() posting: EditJobPostingDTO,
-    ) {
+    ): Promise<JobPosting> {
         return this.jobPostingsService.editJobPosting(posting, id);
     }
 
@@ -44,7 +48,9 @@ export class JobPostingsController {
      **/
     @Delete("/:id")
     @HttpCode(HttpStatus.NO_CONTENT)
-    async deleteJobPosting(@Param("id", ParseIntPipe) id: number) {
+    async deleteJobPosting(
+        @Param("id", ParseIntPipe) id: number,
+    ): Promise<void> {
         return this.jobPostingsService.deleteJobPosting(id);
     }
 
@@ -53,7 +59,7 @@ export class JobPostingsController {
      **/
     @Get()
     @HttpCode(HttpStatus.OK)
-    async getAllJobPostings() {
+    async getAllJobPostings(): Promise<JobPosting[]> {
         return this.jobPostingsService.getAllJobPostings();
     }
 
@@ -62,7 +68,9 @@ export class JobPostingsController {
      **/
     @Get(":id")
     @HttpCode(HttpStatus.OK)
-    async getSingleJobPosting(@Param("id", ParseIntPipe) id: number) {
+    async getSingleJobPosting(
+        @Param("id", ParseIntPipe) id: number,
+    ): Promise<JobPostingResult> {
         return this.jobPostingsService.getSingleJobPosting(id);
     }
 }

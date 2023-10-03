@@ -5,6 +5,7 @@ import { JobPosting } from "./job_posting.entity";
 import { CreateJobPostingDTO } from "./dto/create-posting.dto";
 import { Company } from "../company/company.entity";
 import { EditJobPostingDTO } from "./dto/edit-posting.dto";
+import { JobPostingResult } from "./types/posting.type";
 
 @Injectable()
 export class JobPostingsService {
@@ -96,7 +97,7 @@ export class JobPostingsService {
     /**
      * 채용 공고 상세페이지 조회
      **/
-    async getSingleJobPosting(id: number) {
+    async getSingleJobPosting(id: number): Promise<JobPostingResult> {
         // find posting by id
         const posting = await this.jobPostingRepository
             .createQueryBuilder("posting")
