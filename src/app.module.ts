@@ -8,6 +8,7 @@ import { ApplicationHistoryModule } from "./modules/application_history/applicat
 import { User } from "./modules/user/user.entity";
 import { Company } from "./modules/company/company.entity";
 import { JobPosting } from "./modules/job_posting/job_posting.entity";
+import { SearchModule } from './modules/search/search.module';
 
 @Module({
     imports: [
@@ -29,6 +30,7 @@ import { JobPosting } from "./modules/job_posting/job_posting.entity";
         CompanyModule,
         JobPostingModule,
         ApplicationHistoryModule,
+        SearchModule,
     ],
 })
 export class AppModule {}
