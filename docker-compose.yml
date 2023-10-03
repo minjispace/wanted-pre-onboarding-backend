@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  wanted-mysql:
+    image: mysql:8.0
+    container_name: wanted-mysql
+    restart: always
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wanted
+      MYSQL_PASSWORD: password
