@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ApplicationHistory } from "../application_history/application_history.entity";
 
 @Entity("User")
 export class User {
@@ -7,4 +8,10 @@ export class User {
 
     @Column({ length: 30 })
     name: string;
+
+    @OneToMany(
+        () => ApplicationHistory,
+        (ApplicationHistory) => ApplicationHistory.user,
+    )
+    applicationHistory: ApplicationHistory[];
 }
