@@ -8,7 +8,8 @@ import { ApplicationHistoryModule } from "./modules/application_history/applicat
 import { User } from "./modules/user/user.entity";
 import { Company } from "./modules/company/company.entity";
 import { JobPosting } from "./modules/job_posting/job_posting.entity";
-import { SearchModule } from './modules/search/search.module';
+import { SearchModule } from "./modules/search/search.module";
+import { ApplicationHistory } from "./modules/application_history/application_history.entity";
 
 @Module({
     imports: [
@@ -24,7 +25,7 @@ import { SearchModule } from './modules/search/search.module';
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
             synchronize: process.env.NODE_ENV === "dev" ? true : false,
-            entities: [User, Company, JobPosting],
+            entities: [User, Company, JobPosting, ApplicationHistory],
         }),
         UserModule,
         CompanyModule,
