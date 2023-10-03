@@ -76,7 +76,20 @@ export class JobPostingsService {
     /**
      * 채용 공고 목록 조회
      **/
-    async getAllJobPostings() {
-        return "get all job postings";
+    async getAllJobPostings(): Promise<JobPosting[]> {
+        const postings = await this.jobPostingRepository
+            .createQueryBuilder("posting")
+            .leftJoinAndSelect("posting.company", "company")
+            .select([
+                "posting.id AS job_posting_id",
+                "company.name AS company_name",
+                "company.nation AS company_nation",
+                "company.location AS company_location",
+                "posting.position AS job_position",
+                "posting.reward AS job_reward",
+                "posting.skill AS job_skill",
+            ])
+            .getRawMany();
+        return postings;
     }
 }
