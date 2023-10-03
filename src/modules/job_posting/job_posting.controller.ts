@@ -20,6 +20,7 @@ export class JobPostingsController {
      * 채용 공고 등록
      **/
     @Post("/")
+    @HttpCode(HttpStatus.CREATED)
     async createJobPosting(@Body() posting: CreateJobPostingDTO) {
         return this.jobPostingsService.createJobPosting(posting);
     }
