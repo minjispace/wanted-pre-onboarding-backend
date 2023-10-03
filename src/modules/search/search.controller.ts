@@ -1,5 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus, Query } from "@nestjs/common";
 import { SearchService } from "./search.service";
+import { JobPosting } from "../job_posting/job_posting.entity";
 
 @Controller("")
 export class SearchController {
@@ -10,7 +11,7 @@ export class SearchController {
      **/
     @Get()
     @HttpCode(HttpStatus.OK)
-    async searchPosting(@Query("search") query: string) {
+    async searchPosting(@Query("search") query: string): Promise<JobPosting[]> {
         return this.searchService.searchPosting(query);
     }
 }
