@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { JobPosting } from "../job_posting/job_posting.entity";
 
 @Entity("Company")
 export class Company {
@@ -13,4 +14,7 @@ export class Company {
 
     @Column({ length: 20 })
     location: string;
+
+    @OneToMany(() => JobPosting, (posting) => posting.company)
+    postings: JobPosting[];
 }

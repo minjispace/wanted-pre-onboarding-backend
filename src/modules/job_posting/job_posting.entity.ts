@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Company } from "../company/company.entity";
 
 @Entity("JobPosting")
 export class JobPosting {
@@ -16,4 +17,10 @@ export class JobPosting {
 
     @Column({ length: 20 })
     skill: string;
+
+    @ManyToOne(() => Company, (company) => company.postings, {
+        nullable: false,
+        onDelete: "CASCADE",
+    })
+    company: Company;
 }
