@@ -2,9 +2,14 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ValidationPipe } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { SeedService } from "./modules/seed/seed.service";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+
+    // initialize seed data
+    const seedService = app.get(SeedService);
+    seedService.initializeSeedData();
 
     // middleware
     app.setGlobalPrefix("/api/v1");

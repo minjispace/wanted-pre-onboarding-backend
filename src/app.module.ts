@@ -10,12 +10,15 @@ import { Company } from "./modules/company/company.entity";
 import { JobPosting } from "./modules/job_posting/job_posting.entity";
 import { SearchModule } from "./modules/search/search.module";
 import { ApplicationHistory } from "./modules/application_history/application_history.entity";
+import { SeedService } from "./modules/seed/seed.service";
+import { SeedModule } from "./modules/seed/seed.module";
 
 @Module({
     imports: [
+        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([Company]),
         ConfigModule.forRoot({
             isGlobal: true,
-            // envFilePath: ".env",
         }),
         TypeOrmModule.forRoot({
             type: "mysql",
@@ -32,6 +35,8 @@ import { ApplicationHistory } from "./modules/application_history/application_hi
         JobPostingModule,
         ApplicationHistoryModule,
         SearchModule,
+        SeedModule,
     ],
+    providers: [SeedService],
 })
 export class AppModule {}
