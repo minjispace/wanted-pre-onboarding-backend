@@ -2,7 +2,7 @@ import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CompanyDto } from "./dto/company.dto";
 
-@ApiTags("회사 목록")
+@ApiTags("회사")
 @Controller("company")
 export class CompanyController {
     @ApiOperation({
