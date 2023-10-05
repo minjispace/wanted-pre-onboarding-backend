@@ -111,19 +111,22 @@ export class JobPostingsService {
         }
 
         // find other postings by company
-        const otherPostings = (
-            await this.jobPostingRepository
-                .createQueryBuilder("posting")
-                .where(
-                    "posting.company.id = :companyId AND posting.id != :currentId",
-                    {
-                        companyId: posting.company.id,
-                        currentId: posting.id,
-                    },
-                )
-                .select("posting.id")
-                .getMany()
-        ).map((posting) => posting.id);
+        const otherPostings = await this.jobPostingRepository
+            .createQueryBuilder("posting")
+            .where(
+                "posting.company.id = :companyId AND posting.id != :currentId",
+                {
+                    companyId: posting.company.id,
+                    currentId: posting.id,
+                },
+            )
+            .select("posting.id")
+            .getMany();
+
+        const otherPostingsList =
+            otherPostings.length > 0
+                ? otherPostings.map((posting) => posting.id)
+                : ["No other postings by this company"];
 
         // define result
         const result = {
@@ -135,10 +138,7 @@ export class JobPostingsService {
             job_reward: posting.reward,
             job_skill: posting.skill,
             job_content: posting.content,
-            job_other_postings_by_company:
-                otherPostings.length > 0
-                    ? otherPostings
-                    : "No other postings by this company",
+            job_other_postings_by_company: otherPostingsList,
         };
 
         return result;
