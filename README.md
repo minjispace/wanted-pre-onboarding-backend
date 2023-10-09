@@ -12,6 +12,8 @@
 <hr/>
 
 ### 1. 지원자 성명 : 김민지
+### 1-1. 구현한 API의 동작을 촬영한 데모 영상 링크
+[데모영상]([https://drive.google.com/file/d/1kNPlbChNEV_2jJfSo68auxgj3zQy0zjD/view?usp=drive_link](https://drive.google.com/file/d/1stKmUWb7my5O_eu-liFdGXv3wdGOHmA_/view))
 
 <hr/>
 
